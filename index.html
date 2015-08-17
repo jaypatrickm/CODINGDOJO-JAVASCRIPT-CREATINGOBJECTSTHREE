@@ -1,0 +1,71 @@
+<html>
+<head>
+	<title>Creating Objects</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+	<script>
+
+		//use prototype for methods/classes that will not change per object, that way it does not create a new instance for each new object, it will just inherit and use the prototype..spacesaver.
+
+		var Vehicle = function Vehicle(name, wheels, passengers, speed)
+		{
+			this.name = name;
+			this.wheels = wheels;
+			this.passengers = passengers;
+			this.speed = speed;
+			this.makeNoise = function()
+			{
+				console.log('Vroom!');
+			}
+		}
+		Vehicle.prototype.vin = function()
+		{
+			console.log(this.vin = (Math.floor(Math.random() * 10)).toString() + (Math.floor(Math.random() * 10)).toString() + (Math.floor(Math.random() * 10)).toString());
+		}
+		Vehicle.prototype.distance_travelled = 0;
+		Vehicle.prototype.updateDistanceTravelled = function()
+		{
+			this.distance_travelled += this.speed;
+		}
+		Vehicle.prototype.move = function()
+		{
+			this.updateDistanceTravelled();
+			this.makeNoise();
+		}
+		Vehicle.prototype.checkMiles = function()
+		{
+			console.log(this.distance_travelled);
+		}
+
+		var Bike = new Vehicle("Bike", 2, 1, 10);
+		Bike.makeNoise = function()
+		{
+			console.log('ring ring!');
+		}
+		Bike.makeNoise();
+
+		var Sedan = new Vehicle("Sedan", 4, 4, 35);
+		Sedan.makeNoise = function()
+		{
+			console.log('Honk Honk!');
+		}
+		Sedan.makeNoise();
+
+		var Bus = new Vehicle("Bus", 4, 1, 30);
+		Bus.pickUpPassengers = function()
+		{
+			Bus.passengers += 2;
+		}
+		Bus.makeNoise();
+		console.log(Bus.passengers);
+		Bus.pickUpPassengers();
+		console.log(Bus.passengers);
+		Bus.move();
+		Bus.checkMiles();
+		Bus.move();
+		Bus.checkMiles();
+		Bus.vin();
+	</script>
+</body>
+</html>
